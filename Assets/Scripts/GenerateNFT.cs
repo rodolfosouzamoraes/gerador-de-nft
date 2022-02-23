@@ -21,7 +21,7 @@ public class GenerateNFT : MonoBehaviour
     [SerializeField] List<Sprite> listaBoca;
     [SerializeField] List<Sprite> listaOlho;
     [SerializeField] List<Sprite> listaBone;
-    public string urlFolder;
+    
     public int maxNFTs = 1000;
     int countId = 0;
     public List<string> listCodes = new List<string>();
@@ -155,7 +155,7 @@ public class GenerateNFT : MonoBehaviour
     public string ScreenShotName(int id)
     {
         return string.Format("{0}/StickMan #{1}.png",
-                             urlFolder,
+                             PannelInteractionUserCtlr.Instance.urlFolder,
                              id);
     }
 
