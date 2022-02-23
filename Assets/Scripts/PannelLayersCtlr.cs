@@ -8,6 +8,7 @@ public class PannelLayersCtlr : MonoBehaviour
 {
     public List<LayerNFT> listLayerNFT = new List<LayerNFT>();
     public GameObject itemLayer;
+    public GameObject layerRenderer;
     public Transform contentLayers;
     public Text txtTotalLayer;
     public Text txtTotalPossibilities;
@@ -15,6 +16,7 @@ public class PannelLayersCtlr : MonoBehaviour
     int countLayers = 0;
     int countPossibilities = 0;
     List<GameObject> listItensContent = new List<GameObject>();
+    List<GameObject> listLayerRendererContent = new List<GameObject>();
 
     private void Start()
     {
@@ -27,6 +29,10 @@ public class PannelLayersCtlr : MonoBehaviour
         listLayerNFT.Add(layerNFT);
         GameObject item = Instantiate(itemLayer, contentLayers);
         listItensContent.Add(item);
+        
+        GameObject itemLayerRenderer = Instantiate(layerRenderer, null);
+        listLayerRendererContent.Add(itemLayerRenderer);
+
         IncrementCountLayers();
     }
 
@@ -37,7 +43,13 @@ public class PannelLayersCtlr : MonoBehaviour
             GameObject lastItem = listItensContent.LastOrDefault();
             listItensContent.Remove(lastItem);
             Destroy(lastItem);
+
+            GameObject lastItemLayerRender = listLayerRendererContent.LastOrDefault();
+            listLayerRendererContent.Remove(lastItemLayerRender);
+            Destroy(lastItemLayerRender);
+
             DecrementCountLayer();
+
         }
     }
 

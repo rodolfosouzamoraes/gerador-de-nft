@@ -8,11 +8,13 @@ public class GenerateNFT : MonoBehaviour
 {
     public static GenerateNFT Instance;
     public static PannelInteractionUserCtlr pnlInteractionUser;
+    public static PannelLayersCtlr pnlLayers;
     private void Awake()
     {
         if(Instance == null)
         {
             pnlInteractionUser = GetComponent<PannelInteractionUserCtlr>();
+            pnlLayers = GetComponent<PannelLayersCtlr>();
             Instance = this;
             return;
         }
