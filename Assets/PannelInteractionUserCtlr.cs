@@ -6,22 +6,25 @@ using UnityEngine.UI;
 
 public class PannelInteractionUserCtlr : MonoBehaviour
 {
-    public static PannelInteractionUserCtlr Instance;
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-            return;
-        }
-        Destroy(this);
-    }
-
     public string urlFolder;
+    public int maxNFTs = 0;
+    public string nameNFT;
     public InputField txtInputURL;
+    public InputField txtInputQtdNFT;
+    public InputField txtInputNameNFT;
     public void SelectFolderToSaveNFT()
     {
         urlFolder = EditorUtility.OpenFolderPanel("Select Directory", "", "");
         txtInputURL.text = urlFolder;
+    }
+
+    public void DefineMaxNFT()
+    {
+        maxNFTs = int.Parse(txtInputQtdNFT.text);
+    }
+
+    public void DefineNameNFT()
+    {
+        nameNFT = txtInputNameNFT.text;
     }
 }

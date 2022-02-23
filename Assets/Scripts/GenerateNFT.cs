@@ -6,6 +6,19 @@ using System.Linq;
 
 public class GenerateNFT : MonoBehaviour
 {
+    public static GenerateNFT Instance;
+    public static PannelInteractionUserCtlr pnlInteractionUser;
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            pnlInteractionUser = GetComponent<PannelInteractionUserCtlr>();
+            Instance = this;
+            return;
+        }
+        Destroy(this);
+    }
+
     [SerializeField] SpriteRenderer camada1_background;
     [SerializeField] SpriteRenderer camada2_calca;
     [SerializeField] SpriteRenderer camada3_corpo;
@@ -21,8 +34,7 @@ public class GenerateNFT : MonoBehaviour
     [SerializeField] List<Sprite> listaBoca;
     [SerializeField] List<Sprite> listaOlho;
     [SerializeField] List<Sprite> listaBone;
-    
-    public int maxNFTs = 1000;
+
     int countId = 0;
     public List<string> listCodes = new List<string>();
     public List<string> listCodesDispoiveis = new List<string>();
@@ -33,60 +45,64 @@ public class GenerateNFT : MonoBehaviour
         
     }
 
-    private void Awake()
-    {
-
-    }
+    
 
     // Update is called once per frame
     void Update()
     {
         if (isGenerate)
         {
-            if (listCodes.Count() < maxNFTs)
+            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
             {
                 RandomImage();
             }
         }        
     }
 
-    public void GenerateImages()
+    public void GenerateImagesNFT()
     {
-        int count = 0;
-        for (int i1 = 0; i1 < listaBackground.Count; i1++)
+        pnlInteractionUser.DefineMaxNFT();
+        pnlInteractionUser.DefineNameNFT();
+        if(pnlInteractionUser.maxNFTs>0 && pnlInteractionUser.nameNFT != "" && pnlInteractionUser.urlFolder != "")
         {
-            for (int i2 = 0; i2 < listaCalca.Count; i2++)
+            int count = 0;
+            //Tentar inserir na lista o total de imagens por lista de camadas, ou seja, cada camada vai ter x tamanho de imagens, armazenar esse valor para poder montar as possibilidades.
+            for (int i1 = 0; i1 < listaBackground.Count; i1++)
             {
-                for (int i3 = 0; i3 < listaCorpo.Count; i3++)
+                for (int i2 = 0; i2 < listaCalca.Count; i2++)
                 {
-                    for (int i4 = 0; i4 < listaCamisa.Count; i4++)
+                    for (int i3 = 0; i3 < listaCorpo.Count; i3++)
                     {
-                        for (int i5 = 0; i5 < listaBoca.Count; i5++)
+                        for (int i4 = 0; i4 < listaCamisa.Count; i4++)
                         {
-                            for (int i6 = 0; i6 < listaOlho.Count; i6++)
+                            for (int i5 = 0; i5 < listaBoca.Count; i5++)
                             {
-                                for (int i7 = 0; i7 < listaBone.Count; i7++)
+                                for (int i6 = 0; i6 < listaOlho.Count; i6++)
                                 {
-                                    string code = "" + i1 + "" + i2 + "" + i3 + "" + i4 + "" + i5 + "" + i6 + "" + i7;
-                                    listCodesDispoiveis.Add(code);
-                                    count++;
-                                    /*if (count > maxNFTs)
+                                    for (int i7 = 0; i7 < listaBone.Count; i7++)
                                     {
-                                        //return;
-                                    }*/
+                                        string code = "" + i1 + "" + i2 + "" + i3 + "" + i4 + "" + i5 + "" + i6 + "" + i7;
+                                        listCodesDispoiveis.Add(code);
+                                        count++;
+                                        /*if (count > maxNFTs)
+                                        {
+                                            //return;
+                                        }*/
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            listCodesDispoiveis.Shuffle();
+            if (pnlInteractionUser.maxNFTs == -1)
+            {
+                pnlInteractionUser.maxNFTs = listCodesDispoiveis.Count();
+            }
+            isGenerate = true;
         }
-        listCodesDispoiveis.Shuffle();
-        if (maxNFTs == -1)
-        {
-            maxNFTs = listCodesDispoiveis.Count();
-        }
-        isGenerate = true;
+        
     }
 
     public void RandomImage()
@@ -115,18 +131,11 @@ public class GenerateNFT : MonoBehaviour
     {
         if (isGenerate)
         {
-            if (listCodes.Count() < maxNFTs)
+            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
             {
                 TakeScreenShot(512, 512, listCodes.Count());
             }
         }            
-    }
-
-    IEnumerator TakeImage(int id)
-    {
-        yield return new WaitForSeconds(1f);
-        TakeScreenShot(512, 512, id);
-        yield return new WaitForSeconds(0.5f);
     }
 
     [SerializeField] Camera cameraScreenShot;
@@ -154,8 +163,9 @@ public class GenerateNFT : MonoBehaviour
 
     public string ScreenShotName(int id)
     {
-        return string.Format("{0}/StickMan #{1}.png",
-                             PannelInteractionUserCtlr.Instance.urlFolder,
+        return string.Format("{0}/{1} #{2}.png",
+                             pnlInteractionUser.urlFolder,
+                             pnlInteractionUser.nameNFT,
                              id);
     }
 

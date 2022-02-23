@@ -1891,7 +1891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -41.752853, y: -118.740005}
+  m_AnchoredPosition: {x: 330.74, y: -118.74}
   m_SizeDelta: {x: 123.0959, y: 79.9292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &894061594
@@ -2631,7 +2631,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f2ea86aac12567843b9c43b9cd283676, type: 3}
   - {fileID: 21300000, guid: 6d8abca575ad354409f3188f21b9b6a9, type: 3}
   - {fileID: 21300000, guid: 38550e07621d25240a12d2436910e323, type: 3}
-  maxNFTs: -1
   listCodes: []
   listCodesDispoiveis: []
   cameraScreenShot: {fileID: 519420031}
@@ -2664,7 +2663,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   urlFolder: 
+  maxNFTs: 0
+  nameNFT: 
   txtInputURL: {fileID: 1872061216}
+  txtInputQtdNFT: {fileID: 0}
+  txtInputNameNFT: {fileID: 0}
 --- !u!1 &1050888417
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,7 +4793,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019315444}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1048743346}
+        m_TargetAssemblyTypeName: PannelInteractionUserCtlr, Assembly-CSharp
+        m_MethodName: Generate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2019315444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4863,8 +4878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -258, y: -118}
-  m_SizeDelta: {x: 309.3977, y: 78.4418}
+  m_AnchoredPosition: {x: -71.753006, y: -118}
+  m_SizeDelta: {x: 681.89, y: 78.4418}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2114091769
 MonoBehaviour:
@@ -4899,7 +4914,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'URL do pasta:'
+  m_Text: 'Selecione a pasta para salvar:'
 --- !u!222 &2114091770
 CanvasRenderer:
   m_ObjectHideFlags: 0
