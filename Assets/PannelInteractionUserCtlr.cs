@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PannelInteractionUserCtlr : MonoBehaviour
 {
-    public string urlFolder;
     public static PannelInteractionUserCtlr Instance;
     private void Awake()
     {
@@ -16,9 +16,12 @@ public class PannelInteractionUserCtlr : MonoBehaviour
         }
         Destroy(this);
     }
+
+    public string urlFolder;
+    public InputField txtInputURL;
     public void SelectFolderToSaveNFT()
     {
-        string directory = EditorUtility.OpenFolderPanel("Select Directory", "", "");
-        urlFolder = directory;
+        urlFolder = EditorUtility.OpenFolderPanel("Select Directory", "", "");
+        txtInputURL.text = urlFolder;
     }
 }

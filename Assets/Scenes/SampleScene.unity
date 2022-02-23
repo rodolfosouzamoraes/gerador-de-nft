@@ -877,14 +877,14 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 45
+    m_Alignment: 3
     m_AlignByGeometry: 0
-    m_RichText: 0
+    m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -2631,7 +2631,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f2ea86aac12567843b9c43b9cd283676, type: 3}
   - {fileID: 21300000, guid: 6d8abca575ad354409f3188f21b9b6a9, type: 3}
   - {fileID: 21300000, guid: 38550e07621d25240a12d2436910e323, type: 3}
-  urlFolder: D:/NFT
   maxNFTs: -1
   listCodes: []
   listCodesDispoiveis: []
@@ -2664,6 +2663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13097e1e8f2c89a4386dd4f7f6e6313c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  urlFolder: 
+  txtInputURL: {fileID: 1872061216}
 --- !u!1 &1050888417
 GameObject:
   m_ObjectHideFlags: 0
@@ -4150,7 +4151,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1872061217}
   m_TextComponent: {fileID: 455274616}
   m_Placeholder: {fileID: 1585224842}
