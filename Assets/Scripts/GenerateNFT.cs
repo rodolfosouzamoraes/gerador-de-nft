@@ -26,11 +26,34 @@ public class GenerateNFT : MonoBehaviour
     int countId = 0;
     public List<string> listCodes = new List<string>();
     public List<string> listCodesDispoiveis = new List<string>();
+    bool isGenerate = false;
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    private void Awake()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (isGenerate)
+        {
+            if (listCodes.Count() < maxNFTs)
+            {
+                RandomImage();
+            }
+        }        
+    }
+
+    public void GenerateImages()
+    {
         int count = 0;
-        for(int i1 = 0; i1< listaBackground.Count; i1++)
+        for (int i1 = 0; i1 < listaBackground.Count; i1++)
         {
             for (int i2 = 0; i2 < listaCalca.Count; i2++)
             {
@@ -63,20 +86,7 @@ public class GenerateNFT : MonoBehaviour
         {
             maxNFTs = listCodesDispoiveis.Count();
         }
-    }
-
-    private void Awake()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (listCodes.Count() < maxNFTs)
-        {
-            RandomImage();
-        }
+        isGenerate = true;
     }
 
     public void RandomImage()
@@ -103,10 +113,13 @@ public class GenerateNFT : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (listCodes.Count() < maxNFTs)
+        if (isGenerate)
         {
-            TakeScreenShot(512, 512,listCodes.Count());
-        }
+            if (listCodes.Count() < maxNFTs)
+            {
+                TakeScreenShot(512, 512, listCodes.Count());
+            }
+        }            
     }
 
     IEnumerator TakeImage(int id)
