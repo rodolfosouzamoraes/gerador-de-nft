@@ -73,7 +73,6 @@ public class GenerateNFT : MonoBehaviour
     {
         if(pnlInteractionUser.txtInputURL.text!="" && pnlInteractionUser.txtInputQtdNFT.text!="" && pnlInteractionUser.txtInputNameNFT.text != "")
         {
-
             listLayerNFTs = pnlLayers.LayersNFT;
             listaSpriteRenderer = pnlLayers.RenderesSprite;
             if(listLayerNFTs.Count == 0)

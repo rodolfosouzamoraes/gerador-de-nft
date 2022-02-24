@@ -13,7 +13,7 @@ public class PannelLayersCtlr : MonoBehaviour
     public Text txtTotalPossibilities;
 
     int countLayers = 0;
-    int countPossibilities = 0;
+    public int countPossibilities = 0;
     List<GameObject> listItensContent = new List<GameObject>();
     List<GameObject> listLayerRendererContent = new List<GameObject>();
 
@@ -47,7 +47,7 @@ public class PannelLayersCtlr : MonoBehaviour
     private void Start()
     {
         txtTotalLayer.text =""+ countLayers;
-        txtTotalPossibilities.text = "" + countPossibilities;
+        txtTotalPossibilities.text = $"{countPossibilities} possibilidades";
     }
     public void AddNewLayer()
     {
@@ -77,16 +77,34 @@ public class PannelLayersCtlr : MonoBehaviour
         }
     }
 
+    public void UpdatePossibilities()
+    {
+        countPossibilities = 1;
+        foreach (LayerNFT layer in LayersNFT)
+        {
+            if (layer != null)
+            {
+                if (layer.listLayer != null)
+                {
+                    countPossibilities = countPossibilities * layer.listLayer.Count;
+                }                
+            }            
+        }
+        txtTotalPossibilities.text = $"{countPossibilities} possibilidades";
+    }
+
     private void IncrementCountLayers()
     {
         countLayers++;
         txtTotalLayer.text = "" + countLayers;
+        UpdatePossibilities();
     }
 
     private void DecrementCountLayer()
     {
         countLayers--;
         txtTotalLayer.text = "" + countLayers;
+        UpdatePossibilities();
     }
 
 

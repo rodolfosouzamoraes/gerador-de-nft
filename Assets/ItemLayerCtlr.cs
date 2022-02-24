@@ -38,6 +38,7 @@ public class ItemLayerCtlr : MonoBehaviour
             layerNFT.listLayer.Add(spt);
             //spriteRenderer.sprite = layerNFT.listLayer[0];
             txtTotalImages.text = layerNFT.listLayer.Count.ToString();
+            GenerateNFT.pnlLayers.UpdatePossibilities();
         }
     }
 }
