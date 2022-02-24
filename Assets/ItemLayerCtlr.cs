@@ -9,6 +9,12 @@ public class ItemLayerCtlr : MonoBehaviour
     public Text txtTotalImages;
     LayerNFT layerNFT; // vai ter todas as imagens dessa layer 
     string path;
+
+    public LayerNFT LayerNFT
+    {
+        get { return layerNFT; }
+        private set { }
+    }
     // Start is called before the first frame update
     void Start()
     {

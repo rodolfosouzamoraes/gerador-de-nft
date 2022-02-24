@@ -17,6 +17,33 @@ public class PannelLayersCtlr : MonoBehaviour
     List<GameObject> listItensContent = new List<GameObject>();
     List<GameObject> listLayerRendererContent = new List<GameObject>();
 
+    public List<LayerNFT> LayersNFT
+    {
+        get
+        {
+            List<LayerNFT> list = new List<LayerNFT>();
+            foreach(GameObject item in listItensContent)
+            {
+                list.Add(item.GetComponent<ItemLayerCtlr>().LayerNFT);
+            }
+            return list;
+        }
+        private set { }
+    }
+
+    public List<SpriteRenderer> RenderesSprite
+    {
+        get
+        {
+            List<SpriteRenderer> list = new List<SpriteRenderer>();
+            foreach(GameObject item in listLayerRendererContent)
+            {
+                list.Add(item.GetComponent<SpriteRenderer>());
+            }
+            return list;
+        }
+    }
+
     private void Start()
     {
         txtTotalLayer.text =""+ countLayers;

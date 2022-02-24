@@ -37,17 +37,22 @@ public class GenerateNFT : MonoBehaviour
     [SerializeField] List<Sprite> listaOlho;
     [SerializeField] List<Sprite> listaBone;
 
+    public List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
+    public List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
+
     int countId = 0;
     public List<string> listCodes = new List<string>();
     public List<string> listCodesDispoiveis = new List<string>();
+    public List<int> listTotalForLayers = new List<int>();
     bool isGenerate = false;
+    string code = "";
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
@@ -58,12 +63,46 @@ public class GenerateNFT : MonoBehaviour
             {
                 RandomImage();
             }
-        }        
+        }
+    }
+
+    //Uma maneira de percorer todos os elementos da lista
+    private void GenerateCodes(int index, int idPrevious)
+    {
+        code += ""+ idPrevious; // adiciono o proximo id no CODE
+        if (index < listTotalForLayers.Count) // vou até o ultimo index da listTotalForLayers
+        {
+            for (int i = 0; i < listTotalForLayers[index]; i++)
+            {
+                GenerateCodes(index + 1, i); // acesso o mesmo método para poder descer mais um degrau da lista.
+                string recoverCode = code.Remove(code.Length - 1, 1); // removo o id anterior para poder inserir o novo no próximo.
+                code = recoverCode;
+            }
+        }
+        else
+        {
+            listCodes.Add(code);
+            
+        }
     }
 
     public void GenerateImagesNFT()
     {
-        pnlInteractionUser.DefineMaxNFT();
+        listLayerNFTs = pnlLayers.LayersNFT;
+        listaSpriteRenderer = pnlLayers.RenderesSprite;
+
+        foreach(LayerNFT layer in listLayerNFTs)
+        {
+            listTotalForLayers.Add(layer.listLayer.Count);
+        }
+        
+        for(int i = 0; i < listTotalForLayers[0]; i++)
+        {
+            GenerateCodes(1,i);
+            code = "";
+        }
+        //Debug.Log("Total LayerNFT: "+ listLayerNFTs.Count);
+        /*pnlInteractionUser.DefineMaxNFT();
         pnlInteractionUser.DefineNameNFT();
         if(pnlInteractionUser.maxNFTs>0 && pnlInteractionUser.nameNFT != "" && pnlInteractionUser.urlFolder != "")
         {
@@ -89,7 +128,7 @@ public class GenerateNFT : MonoBehaviour
                                         /*if (count > maxNFTs)
                                         {
                                             //return;
-                                        }*/
+                                        }
                                     }
                                 }
                             }
@@ -103,8 +142,8 @@ public class GenerateNFT : MonoBehaviour
                 pnlInteractionUser.maxNFTs = listCodesDispoiveis.Count();
             }
             isGenerate = true;
-        }
-        
+        }*/
+
     }
 
     public void RandomImage()
