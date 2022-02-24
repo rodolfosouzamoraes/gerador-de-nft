@@ -21,13 +21,14 @@ public class GenerateNFT : MonoBehaviour
         }
         Destroy(this);
     }
-    public Image imgNFT;
     public GameObject goGenerateNFT;
     public List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
     public List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
     public List<string> listCodes = new List<string>();
     public List<string> listCodesDispoiveis = new List<string>();
     public List<int> listTotalForLayers = new List<int>();
+    public Slider sldBar;
+    public Text txtNameNFT;
     bool isGenerate = false;
     string code = "";
     // Start is called before the first frame update
@@ -43,7 +44,7 @@ public class GenerateNFT : MonoBehaviour
     {
         if (isGenerate)
         {
-            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
+            if (listCodes.Count() <= pnlInteractionUser.maxNFTs)
             {
                 RandomImage();
             }
@@ -158,9 +159,10 @@ public class GenerateNFT : MonoBehaviour
     {
         if (isGenerate)
         {
-            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
+            if (listCodes.Count() <= pnlInteractionUser.maxNFTs)
             {
                 TakeScreenShot(512, 512, listCodes.Count());
+                sldBar.value =(float)listCodes.Count() / (float)pnlInteractionUser.maxNFTs;
             }
         }            
     }
@@ -183,6 +185,7 @@ public class GenerateNFT : MonoBehaviour
         //Destroy(rt);
         byte[] bytesImg = screenShot.EncodeToPNG();
         string filename = ScreenShotName(id);
+        txtNameNFT.text = $"{pnlInteractionUser.nameNFT} #{id}";
         System.IO.File.WriteAllBytes(filename, bytesImg);
         Debug.Log(string.Format("Took screenshot to: {0}", filename));
         //imgNFT.sprite = LoadTexture(bytesImg);
