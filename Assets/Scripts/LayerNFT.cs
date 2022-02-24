@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class LayerNFT
 {
-    List<Sprite> listLayer { get; set; }
+    public List<Sprite> listLayer { get; set; }
+
+    public LayerNFT()
+    {
+        this.listLayer = new List<Sprite>();
+    }
 }

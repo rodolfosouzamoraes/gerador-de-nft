@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3130676934142213074}
   - component: {fileID: 763000846493694592}
   - component: {fileID: 787760541260696109}
+  - component: {fileID: 2675484721287411058}
   m_Layer: 5
   m_Name: ItemLayer
   m_TagString: Untagged
@@ -78,6 +79,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2675484721287411058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161802417515280464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d632c198351ee4bb03ba4aaf55594c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtTotalImages: {fileID: 6450112105804686695}
 --- !u!1 &4099362520835747965
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +291,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1974927479799015903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2675484721287411058}
+        m_TargetAssemblyTypeName: ItemLayerCtlr, Assembly-CSharp
+        m_MethodName: SelectImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7064432319269605688
 GameObject:
   m_ObjectHideFlags: 0

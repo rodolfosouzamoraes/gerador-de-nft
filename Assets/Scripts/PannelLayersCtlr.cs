@@ -6,7 +6,6 @@ using System.Linq;
 
 public class PannelLayersCtlr : MonoBehaviour
 {
-    public List<LayerNFT> listLayerNFT = new List<LayerNFT>();
     public GameObject itemLayer;
     public GameObject layerRenderer;
     public Transform contentLayers;
@@ -25,12 +24,10 @@ public class PannelLayersCtlr : MonoBehaviour
     }
     public void AddNewLayer()
     {
-        LayerNFT layerNFT = new LayerNFT();
-        listLayerNFT.Add(layerNFT);
-        GameObject item = Instantiate(itemLayer, contentLayers);
-        listItensContent.Add(item);
-        
+        GameObject item = Instantiate(itemLayer, contentLayers);        
         GameObject itemLayerRenderer = Instantiate(layerRenderer, null);
+
+        listItensContent.Add(item);
         listLayerRendererContent.Add(itemLayerRenderer);
 
         IncrementCountLayers();
