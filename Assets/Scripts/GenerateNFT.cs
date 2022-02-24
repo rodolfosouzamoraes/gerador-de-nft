@@ -21,11 +21,10 @@ public class GenerateNFT : MonoBehaviour
         }
         Destroy(this);
     }
-
+    public Image imgNFT;
+    public GameObject goGenerateNFT;
     public List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
     public List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
-
-    int countId = 0;
     public List<string> listCodes = new List<string>();
     public List<string> listCodesDispoiveis = new List<string>();
     public List<int> listTotalForLayers = new List<int>();
@@ -119,7 +118,8 @@ public class GenerateNFT : MonoBehaviour
                     pnlInteractionUser.DefineMaxNFT();
                     pnlInteractionUser.DefineNameNFT();
                     listCodesDispoiveis.Shuffle();
-                    isGenerate = true;
+                    goGenerateNFT.SetActive(true);
+                    isGenerate = true;                    
                 }
             }                     
         }
@@ -128,6 +128,12 @@ public class GenerateNFT : MonoBehaviour
             EditorUtility.DisplayDialog("Atenção!", "Preencha todos os campos!", "Ok");
         }
 
+    }
+
+    public void StopGenerate()
+    {
+        isGenerate = false;
+        goGenerateNFT.SetActive(false);
     }
 
     public void RandomImage()
@@ -167,19 +173,20 @@ public class GenerateNFT : MonoBehaviour
     {
         //yield return frameEnd; 
         Debug.Log("Take Screenshot");
-        RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
-        cameraScreenShot.targetTexture = rt;
+        RenderTexture rt = cameraScreenShot.targetTexture;
+        //cameraScreenShot.targetTexture = rt;
         Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
         cameraScreenShot.Render();
         RenderTexture.active = rt;
         screenShot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
-        cameraScreenShot.targetTexture = null;
+        //cameraScreenShot.targetTexture = null;
         RenderTexture.active = null; // JC: added to avoid errors
-        Destroy(rt);
+        //Destroy(rt);
         byte[] bytesImg = screenShot.EncodeToPNG();
         string filename = ScreenShotName(id);
         System.IO.File.WriteAllBytes(filename, bytesImg);
         Debug.Log(string.Format("Took screenshot to: {0}", filename));
+        //imgNFT.sprite = LoadTexture(bytesImg);
     }
 
     public string ScreenShotName(int id)
@@ -190,11 +197,11 @@ public class GenerateNFT : MonoBehaviour
                              id);
     }
 
-    public void LoadTexture(Image imgTexture, byte[] bytesArray)
+    public Sprite LoadTexture(byte[] bytesArray)
     {
         Texture2D tex = new Texture2D(512, 512, TextureFormat.RGB24, false);
         tex.LoadRawTextureData(bytesArray);
         tex.Apply();
-        imgTexture.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0));
+        return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0));
     }
 }

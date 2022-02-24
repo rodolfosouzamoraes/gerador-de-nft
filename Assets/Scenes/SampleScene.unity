@@ -894,6 +894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
+  - component: {fileID: 519420029}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -901,6 +902,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &519420029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457d1e04235e65e49af054d213930a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  render: {fileID: 8400000, guid: dde1ba55832ddb443bab002f11664772, type: 2}
+  mainCamera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2493,6 +2508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a21e881c66f2c14a9ba470fc490e20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imgNFT: {fileID: 0}
+  goGenerateNFT: {fileID: 1950382048}
   listaSpriteRenderer: []
   listCodes: []
   listCodesDispoiveis: []
@@ -3283,7 +3300,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1504182626}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1048743344}
+        m_TargetAssemblyTypeName: GenerateNFT, Assembly-CSharp
+        m_MethodName: StopGenerate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1504182626
 MonoBehaviour:
   m_ObjectHideFlags: 0
