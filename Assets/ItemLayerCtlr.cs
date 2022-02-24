@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ItemLayerCtlr : MonoBehaviour
 {
     public Text txtTotalImages;
+    public Text txtNameLayer;
     LayerNFT layerNFT; // vai ter todas as imagens dessa layer 
     string path;
 
@@ -19,6 +20,11 @@ public class ItemLayerCtlr : MonoBehaviour
     void Start()
     {
         layerNFT = new LayerNFT();
+    }
+
+    public void NameLayer(int number)
+    {
+        txtNameLayer.text = "Camada " + number;
     }
 
     public void SelectImage()

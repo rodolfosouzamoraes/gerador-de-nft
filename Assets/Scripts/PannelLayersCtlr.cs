@@ -55,6 +55,8 @@ public class PannelLayersCtlr : MonoBehaviour
         GameObject itemLayerRenderer = Instantiate(layerRenderer, null);
 
         listItensContent.Add(item);
+        item.GetComponent<ItemLayerCtlr>().NameLayer(listItensContent.Count);
+
         listLayerRendererContent.Add(itemLayerRenderer);
 
         IncrementCountLayers();

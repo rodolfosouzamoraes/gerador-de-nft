@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtTotalImages: {fileID: 6450112105804686695}
+  txtNameLayer: {fileID: 4854408264868564325}
 --- !u!1 &4099362520835747965
 GameObject:
   m_ObjectHideFlags: 0
