@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEditor;
 
 public class GenerateNFT : MonoBehaviour
 {
@@ -20,22 +21,6 @@ public class GenerateNFT : MonoBehaviour
         }
         Destroy(this);
     }
-
-    [SerializeField] SpriteRenderer camada1_background;
-    [SerializeField] SpriteRenderer camada2_calca;
-    [SerializeField] SpriteRenderer camada3_corpo;
-    [SerializeField] SpriteRenderer camada4_camisa;
-    [SerializeField] SpriteRenderer camada5_boca;
-    [SerializeField] SpriteRenderer camada6_olho;
-    [SerializeField] SpriteRenderer camada7_bone;
-
-    [SerializeField] List<Sprite> listaBackground;
-    [SerializeField] List<Sprite> listaCalca;
-    [SerializeField] List<Sprite> listaCorpo;
-    [SerializeField] List<Sprite> listaCamisa;
-    [SerializeField] List<Sprite> listaBoca;
-    [SerializeField] List<Sprite> listaOlho;
-    [SerializeField] List<Sprite> listaBone;
 
     public List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
     public List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
@@ -81,68 +66,67 @@ public class GenerateNFT : MonoBehaviour
         }
         else
         {
-            listCodes.Add(code);
-            
+            listCodesDispoiveis.Add(code);
         }
     }
 
     public void GenerateImagesNFT()
     {
-        listLayerNFTs = pnlLayers.LayersNFT;
-        listaSpriteRenderer = pnlLayers.RenderesSprite;
+        if(pnlInteractionUser.txtInputURL.text!="" && pnlInteractionUser.txtInputQtdNFT.text!="" && pnlInteractionUser.txtInputNameNFT.text != "")
+        {
 
-        foreach(LayerNFT layer in listLayerNFTs)
-        {
-            listTotalForLayers.Add(layer.listLayer.Count);
-        }
-        
-        for(int i = 0; i < listTotalForLayers[0]; i++)
-        {
-            GenerateCodes(1,i);
-            code = "";
-        }
-        //Debug.Log("Total LayerNFT: "+ listLayerNFTs.Count);
-        /*pnlInteractionUser.DefineMaxNFT();
-        pnlInteractionUser.DefineNameNFT();
-        if(pnlInteractionUser.maxNFTs>0 && pnlInteractionUser.nameNFT != "" && pnlInteractionUser.urlFolder != "")
-        {
-            int count = 0;
-            //Tentar inserir na lista o total de imagens por lista de camadas, ou seja, cada camada vai ter x tamanho de imagens, armazenar esse valor para poder montar as possibilidades.
-            for (int i1 = 0; i1 < listaBackground.Count; i1++)
+            listLayerNFTs = pnlLayers.LayersNFT;
+            listaSpriteRenderer = pnlLayers.RenderesSprite;
+            if(listLayerNFTs.Count == 0)
             {
-                for (int i2 = 0; i2 < listaCalca.Count; i2++)
+                EditorUtility.DisplayDialog("Atenção!", "É obrigatório adicionar pelomenos uma camada!", "Ok");
+            }
+            else
+            {
+                bool isZero = false;
+                foreach (LayerNFT layer in listLayerNFTs)
                 {
-                    for (int i3 = 0; i3 < listaCorpo.Count; i3++)
+                    if (layer.listLayer.Count == 0)
                     {
-                        for (int i4 = 0; i4 < listaCamisa.Count; i4++)
-                        {
-                            for (int i5 = 0; i5 < listaBoca.Count; i5++)
-                            {
-                                for (int i6 = 0; i6 < listaOlho.Count; i6++)
-                                {
-                                    for (int i7 = 0; i7 < listaBone.Count; i7++)
-                                    {
-                                        string code = "" + i1 + "" + i2 + "" + i3 + "" + i4 + "" + i5 + "" + i6 + "" + i7;
-                                        listCodesDispoiveis.Add(code);
-                                        count++;
-                                        /*if (count > maxNFTs)
-                                        {
-                                            //return;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        isZero = true;
+                        break;
                     }
+                    listTotalForLayers.Add(layer.listLayer.Count);
                 }
-            }
-            listCodesDispoiveis.Shuffle();
-            if (pnlInteractionUser.maxNFTs == -1)
-            {
-                pnlInteractionUser.maxNFTs = listCodesDispoiveis.Count();
-            }
-            isGenerate = true;
-        }*/
+
+                if (isZero)
+                {
+                    listTotalForLayers.Clear();
+                    listLayerNFTs.Clear();
+                    listaSpriteRenderer.Clear();
+                    EditorUtility.DisplayDialog("Atenção!", "É obrigatório preencher a camada com pelomenos uma imagem!", "Ok");
+                }
+                else
+                {
+                    for (int i = 0; i < listTotalForLayers[0]; i++)
+                    {
+                        GenerateCodes(1, i);
+                        code = "";
+                    }
+
+                    int countOrderLayerSpriteRenderer = 0;
+                    foreach (SpriteRenderer spt in listaSpriteRenderer)
+                    {
+                        spt.sortingOrder = countOrderLayerSpriteRenderer;
+                        countOrderLayerSpriteRenderer++;
+                    }
+
+                    pnlInteractionUser.DefineMaxNFT();
+                    pnlInteractionUser.DefineNameNFT();
+                    listCodesDispoiveis.Shuffle();
+                    isGenerate = true;
+                }
+            }                     
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Atenção!", "Preencha todos os campos!", "Ok");
+        }
 
     }
 
@@ -153,13 +137,10 @@ public class GenerateNFT : MonoBehaviour
             string codeSelect = listCodesDispoiveis.FirstOrDefault();
             if (codeSelect != "")
             {
-                camada1_background.sprite = listaBackground[int.Parse(codeSelect[0].ToString())];
-                camada2_calca.sprite = listaCalca[int.Parse(codeSelect[1].ToString())];
-                camada3_corpo.sprite = listaCorpo[int.Parse(codeSelect[2].ToString())];
-                camada4_camisa.sprite = listaCamisa[int.Parse(codeSelect[3].ToString())];
-                camada5_boca.sprite = listaBoca[int.Parse(codeSelect[4].ToString())];
-                camada6_olho.sprite = listaOlho[int.Parse(codeSelect[5].ToString())];
-                camada7_bone.sprite = listaBone[int.Parse(codeSelect[6].ToString())];
+                for(int i = 0; i<listLayerNFTs.Count; i++)
+                {
+                    listaSpriteRenderer[i].sprite = listLayerNFTs[i].listLayer[int.Parse(codeSelect[i].ToString())];
+                }
                 listCodes.Add(codeSelect);
                 listCodesDispoiveis.Remove(codeSelect);
                 break;
@@ -180,7 +161,6 @@ public class GenerateNFT : MonoBehaviour
     }
 
     [SerializeField] Camera cameraScreenShot;
-    private bool isTakeScreenShotOneNextFrame;
     //WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
 
     public void TakeScreenShot(int resWidth, int resHeight, int id)
