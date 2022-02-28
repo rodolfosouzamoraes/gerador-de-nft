@@ -161,7 +161,7 @@ public class GenerateNFT : MonoBehaviour
         {
             if (listCodes.Count() <= pnlInteractionUser.maxNFTs)
             {
-                TakeScreenShot(512, 512, listCodes.Count());
+                TakeScreenShot(1080, 1080, listCodes.Count());
                 sldBar.value =(float)listCodes.Count() / (float)pnlInteractionUser.maxNFTs;
             }
         }            
