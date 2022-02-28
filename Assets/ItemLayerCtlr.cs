@@ -40,7 +40,7 @@ public class ItemLayerCtlr : MonoBehaviour
             
             WWW www = new WWW("file:///" + path);
             Rect rect = new Rect(0,0,www.texture.width,www.texture.height);
-            Sprite spt = Sprite.Create(www.texture, rect, new Vector2(0.5f, 0.5f), 638);
+            Sprite spt = Sprite.Create(www.texture, rect, new Vector2(0.5f, 0.5f), 108);
             layerNFT.listLayer.Add(spt);
             //spriteRenderer.sprite = layerNFT.listLayer[0];
             txtTotalImages.text = layerNFT.listLayer.Count.ToString();
