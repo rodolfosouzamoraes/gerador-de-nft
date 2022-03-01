@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEditor;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class GenerateNFT : MonoBehaviour
 {
@@ -34,7 +36,6 @@ public class GenerateNFT : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
 
@@ -102,6 +103,7 @@ public class GenerateNFT : MonoBehaviour
                 }
                 else
                 {
+                    OpenFileWithCodes();
                     for (int i = 0; i < listTotalForLayers[0]; i++)
                     {
                         GenerateCodes(1, i);
@@ -117,6 +119,8 @@ public class GenerateNFT : MonoBehaviour
 
                     pnlInteractionUser.DefineMaxNFT();
                     pnlInteractionUser.DefineNameNFT();
+                    List<string> result = listCodesDispoiveis.Except(listCodes).ToList(); // remove todos os codigos que já foram utilizados
+                    listCodesDispoiveis = result;
                     listCodesDispoiveis.Shuffle();
                     goGenerateNFT.SetActive(true);
                     isGenerate = true;                    
@@ -149,6 +153,7 @@ public class GenerateNFT : MonoBehaviour
                 }
                 listCodes.Add(codeSelect);
                 listCodesDispoiveis.Remove(codeSelect);
+                SaveCodesInFile();
                 break;
             }            
         }
@@ -206,5 +211,26 @@ public class GenerateNFT : MonoBehaviour
         tex.LoadRawTextureData(bytesArray);
         tex.Apply();
         return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0));
+    }
+
+    public void SaveCodesInFile()
+    {
+        FileStream fs = new FileStream("save.dat", FileMode.OpenOrCreate);
+        BinaryFormatter bf = new BinaryFormatter();
+        bf.Serialize(fs, listCodes);
+        fs.Close();
+    }
+
+    public void OpenFileWithCodes()
+    {
+        using (Stream stream = File.Open("save.dat", FileMode.OpenOrCreate))
+        {
+            if (stream.Length > 0)
+            {
+                var bformatter = new BinaryFormatter();
+
+                listCodes = (List<string>)bformatter.Deserialize(stream);
+            }            
+        }
     }
 }
