@@ -52,7 +52,7 @@ public class PannelLayersCtlr : MonoBehaviour
     public void AddNewLayer()
     {
         GameObject item = Instantiate(itemLayer, contentLayers);        
-        GameObject itemLayerRenderer = Instantiate(layerRenderer, null);
+        GameObject itemLayerRenderer = Instantiate(layerRenderer, gameObject.transform.parent);
 
         listItensContent.Add(item);
         item.GetComponent<ItemLayerCtlr>().NameLayer(listItensContent.Count);

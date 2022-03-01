@@ -21,7 +21,7 @@ public class GarbageCollectionManager : MonoBehaviour
     private void Update()
     {
         _timeSinceLastGarbageCollection += Time.unscaledDeltaTime;
-        Debug.Log($"Time: {_timeSinceLastGarbageCollection}");
+        //Debug.Log($"Time: {_timeSinceLastGarbageCollection}");
         if (_timeSinceLastGarbageCollection > maxTimeBetweenGarbageCollections)
         {
             CollectGarbage();
@@ -31,7 +31,7 @@ public class GarbageCollectionManager : MonoBehaviour
     private void CollectGarbage()
     {
         _timeSinceLastGarbageCollection = 0f;
-        Debug.Log("Collecting garbage"); // talking about garbage... 
+        //Debug.Log("Collecting garbage"); // talking about garbage... 
 #if !UNITY_EDITOR
     // Not supported on the editor
     GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;

@@ -180,6 +180,7 @@ public class GenerateNFT : MonoBehaviour
                 sldBar.value =(float)listCodes.Count() / (float)pnlInteractionUser.maxNFTs;
             }
             listCodes.Clear();
+            GameManager.IncrementCountNFT();
         }
         
     }
@@ -190,7 +191,7 @@ public class GenerateNFT : MonoBehaviour
     public void TakeScreenShot(int resWidth, int resHeight, int id, string code)
     {
         //yield return frameEnd; 
-        Debug.Log("Take Screenshot");
+        //Debug.Log("Take Screenshot");
         RenderTexture rt = cameraScreenShot.targetTexture;
         //cameraScreenShot.targetTexture = rt;
         Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
@@ -204,7 +205,7 @@ public class GenerateNFT : MonoBehaviour
         string filename = ScreenShotName(id, code);
         txtNameNFT.text = $"{pnlInteractionUser.nameNFT} #{id}";
         File.WriteAllBytes(filename, bytesImg);
-        Debug.Log(string.Format("Took screenshot to: {0}", filename));
+        //Debug.Log(string.Format("Took screenshot to: {0}", filename));
         //imgNFT.sprite = LoadTexture(bytesImg);
     }
 
