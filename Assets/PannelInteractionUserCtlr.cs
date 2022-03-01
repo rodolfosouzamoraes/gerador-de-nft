@@ -1,3 +1,4 @@
+using SFB;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,8 +15,9 @@ public class PannelInteractionUserCtlr : MonoBehaviour
     public InputField txtInputNameNFT;
     public void SelectFolderToSaveNFT()
     {
-        urlFolder = EditorUtility.OpenFolderPanel("Select Directory", "", "");
-        txtInputURL.text = urlFolder;
+        var paths = StandaloneFileBrowser.OpenFolderPanel("Select Folder", "", false);//EditorUtility.OpenFolderPanel("Select Directory", "", "");
+        urlFolder = paths[0].Replace("\\", "/");
+        txtInputURL.text = urlFolder; //urlFolder;
     }
 
     public void DefineMaxNFT()
