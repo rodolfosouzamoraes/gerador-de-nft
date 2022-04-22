@@ -152,6 +152,7 @@ public class GenerateNFT : MonoBehaviour
         ClearLists();
         isGenerate = false;
         goGenerateNFT.SetActive(false);
+        Application.OpenURL(pnlInteractionUser.urlFolder);
     }
 
     public void RandomImage()

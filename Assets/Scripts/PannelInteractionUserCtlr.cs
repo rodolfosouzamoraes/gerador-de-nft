@@ -53,4 +53,9 @@ public class PannelInteractionUserCtlr : MonoBehaviour
     {
         nameNFT = txtInputNameNFT.text;
     }
+
+    public void OpenFolder()
+    {
+        
+    }
 }
