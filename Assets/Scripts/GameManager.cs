@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public static void IncrementCountNFT()
     {
         countNFTs++;
-        if (countNFTs>500)
+        if (countNFTs>50)
         {
             countNFTs = 0;
             SceneManager.LoadScene(0);
