@@ -33,11 +33,17 @@ public class GenerateNFT : MonoBehaviour
     public Slider sldBar;
     public Text txtNameNFT;
     public DisplayDialogCtlr displayDialog;
+    public GameObject pnlQuestionTutorial;
+    public GameObject pnlTutorial;
     bool isGenerate = false;
     string code = "";
     // Start is called before the first frame update
     void Start()
     {
+        if(PlayerPrefs.GetInt("Tutorial") == 0)
+        {
+            pnlQuestionTutorial.SetActive(true);
+        }
     }
 
 
@@ -260,5 +266,17 @@ public class GenerateNFT : MonoBehaviour
                 listCodes = (List<string>)bformatter.Deserialize(stream);
             }            
         }
+    }
+
+    public void SetViewTutorial()
+    {
+        PlayerPrefs.SetInt("Tutorial", 1);
+        pnlQuestionTutorial.SetActive(false);
+    }
+
+    public void ViewTutorial()
+    {
+        SetViewTutorial();
+        pnlTutorial.SetActive(true);
     }
 }

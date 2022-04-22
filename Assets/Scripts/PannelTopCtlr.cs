@@ -11,13 +11,6 @@ public class PannelTopCtlr : MonoBehaviour
     [SerializeField] AudioSource audioMusic;
     [SerializeField] AudioSource audioClickMouse;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (audioClickMouse.enabled)
@@ -39,5 +32,10 @@ public class PannelTopCtlr : MonoBehaviour
     public void ExitApplication()
     {
         Application.Quit();
+    }
+
+    public void ShowTutorial()
+    {
+        GenerateNFT.Instance.pnlTutorial.SetActive(true);
     }
 }
