@@ -119,7 +119,7 @@ public class GenerateNFT : MonoBehaviour
                     OpenFileWithCodes();
                     for (int i = 0; i < listTotalForLayers[0]; i++)
                     {
-                        GenerateCodes(0, i);
+                        GenerateCodes(1, i);
                         code = "";
                     }
 
