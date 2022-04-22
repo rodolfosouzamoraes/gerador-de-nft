@@ -41,6 +41,11 @@ public class ItemLayerCtlr : MonoBehaviour
             foreach(string path in paths)
             {
                 WWW www = new WWW("file:///" + path.Replace("\\","/"));
+                if (www.texture.width != 1080 || www.texture.height != 1080)
+                {
+                    GenerateNFT.Instance.displayDialog.ShowDialog("Atenção!", "Insira apenas imagens que possuem resolução 1080x1080.");
+                    return;
+                }
                 Rect rect = new Rect(0, 0, www.texture.width, www.texture.height);
                 Sprite spt = Sprite.Create(www.texture, rect, new Vector2(0.5f, 0.5f), 108);
                 layerNFT.listLayer.Add(spt);
