@@ -47,11 +47,24 @@ public class GenerateNFT : MonoBehaviour
     {
         if (isGenerate)
         {
-            if (listCodes.Count() <= pnlInteractionUser.maxNFTs)
+            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
             {
                 RandomImage();
             }
+            else
+            {
+                StopGenerate();
+            }
         }
+    }
+
+    public void ClearLists()
+    {
+        listTotalForLayers.Clear();
+        listLayerNFTs.Clear();
+        listaSpriteRenderer.Clear();
+        listCodesDispoiveis.Clear();
+        listCodes.Clear();
     }
 
     //Uma maneira de percorer todos os elementos da lista
@@ -98,9 +111,7 @@ public class GenerateNFT : MonoBehaviour
 
                 if (isZero)
                 {
-                    listTotalForLayers.Clear();
-                    listLayerNFTs.Clear();
-                    listaSpriteRenderer.Clear();
+                    ClearLists();
                     displayDialog.ShowDialog("Atenção!", "É obrigatório preencher a camada com pelomenos uma imagem!");
                 }
                 else
@@ -108,7 +119,7 @@ public class GenerateNFT : MonoBehaviour
                     OpenFileWithCodes();
                     for (int i = 0; i < listTotalForLayers[0]; i++)
                     {
-                        GenerateCodes(1, i);
+                        GenerateCodes(0, i);
                         code = "";
                     }
 
@@ -138,6 +149,7 @@ public class GenerateNFT : MonoBehaviour
 
     public void StopGenerate()
     {
+        ClearLists();
         isGenerate = false;
         goGenerateNFT.SetActive(false);
     }
@@ -148,7 +160,7 @@ public class GenerateNFT : MonoBehaviour
         while (true)
         {
             string codeSelect = listCodesDispoiveis.FirstOrDefault();
-            if (codeSelect != "")
+            if (codeSelect != "" || codeSelect != null)
             {
                 for(int i = 0; i<listLayerNFTs.Count; i++)
                 {
@@ -156,17 +168,19 @@ public class GenerateNFT : MonoBehaviour
                     {
                         listaSpriteRenderer[i].sprite = listLayerNFTs[i].listLayer[int.Parse(codeSelect[i].ToString())];
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        Debug.Log("Erro: "+ex.Message);
+                        Debug.Log("Erro: " + ex.Message);
+                        StopGenerate();
+                        return;
                     }
-                    
                 }
                 listCodes.Add(codeSelect);
                 listCodesDispoiveis.Remove(codeSelect);
                 SaveCodesInFile();
                 break;
-            }            
+            }
+            return;
         }        
     }
 
@@ -179,7 +193,7 @@ public class GenerateNFT : MonoBehaviour
                 TakeScreenShot(1080, 1080, listCodes.Count(), listCodes.LastOrDefault());
                 sldBar.value =(float)listCodes.Count() / (float)pnlInteractionUser.maxNFTs;
             }
-            listCodes.Clear();
+            //listCodes.Clear();
             GameManager.IncrementCountNFT();
         }
         
