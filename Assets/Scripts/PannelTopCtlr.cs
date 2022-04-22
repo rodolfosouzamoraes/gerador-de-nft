@@ -35,4 +35,9 @@ public class PannelTopCtlr : MonoBehaviour
         audioClickMouse.enabled = !audioClickMouse.enabled;
         imgAudioButton.sprite = audioMusic.enabled == true ? audioOn : audioOff;
     }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
 }
