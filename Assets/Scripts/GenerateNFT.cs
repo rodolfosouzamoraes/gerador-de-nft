@@ -37,6 +37,7 @@ public class GenerateNFT : MonoBehaviour
     public GameObject pnlTutorial;
     bool isGenerate = false;
     string code = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -279,4 +280,6 @@ public class GenerateNFT : MonoBehaviour
         SetViewTutorial();
         pnlTutorial.SetActive(true);
     }
+
+    
 }

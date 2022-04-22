@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class PannelTopCtlr : MonoBehaviour
 {
     [SerializeField] Image imgAudioButton;
+    [SerializeField] Image imgFullscreenButton;
     [SerializeField] Sprite audioOn;
     [SerializeField] Sprite audioOff;
+    [SerializeField] Sprite fullscreenOn;
+    [SerializeField] Sprite fullscreenOff;
     [SerializeField] AudioSource audioMusic;
     [SerializeField] AudioSource audioClickMouse;
+    bool isFullScreen = false;
 
     void Update()
     {
@@ -37,5 +41,12 @@ public class PannelTopCtlr : MonoBehaviour
     public void ShowTutorial()
     {
         GenerateNFT.Instance.pnlTutorial.SetActive(true);
+    }
+
+    public void OnOffFullScreen()
+    {
+        isFullScreen = !isFullScreen;
+        Screen.fullScreen = isFullScreen;
+        imgFullscreenButton.sprite = isFullScreen == true ? fullscreenOn : fullscreenOff;
     }
 }
