@@ -15,6 +15,12 @@ public class PannelTopCtlr : MonoBehaviour
     [SerializeField] AudioSource audioClickMouse;
     bool isFullScreen = false;
 
+    private void Start()
+    {
+        isFullScreen = Screen.fullScreen;
+        imgFullscreenButton.sprite = isFullScreen == true ? fullscreenOn : fullscreenOff;
+    }
+
     void Update()
     {
         if (audioClickMouse.enabled)
