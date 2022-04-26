@@ -32,7 +32,7 @@ public class PannelInteractionUserCtlr : MonoBehaviour
     public void DefineMaxNFT()
     {
         int totalNFTInsertUser = int.Parse(txtInputQtdNFT.text);
-        if (totalNFTInsertUser <= GenerateNFT.pnlLayers.countPossibilities)
+        if (totalNFTInsertUser <= GameManager.pnlLayers.countPossibilities)
         {
             maxNFTs = int.Parse(txtInputQtdNFT.text);
         }
@@ -45,7 +45,7 @@ public class PannelInteractionUserCtlr : MonoBehaviour
 
     public void InsertMaxPossibilitiesInput()
     {
-        maxNFTs = GenerateNFT.pnlLayers.countPossibilities;
+        maxNFTs = GameManager.pnlLayers.countPossibilities;
         txtInputQtdNFT.text = "" + maxNFTs;
     }
 

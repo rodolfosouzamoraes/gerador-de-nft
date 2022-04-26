@@ -1,60 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using UnityEditor;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 
 public class GenerateNFT : MonoBehaviour
 {
-    public static GenerateNFT Instance;
-    public static PannelInteractionUserCtlr pnlInteractionUser;
-    public static PannelLayersCtlr pnlLayers;
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            pnlInteractionUser = GetComponent<PannelInteractionUserCtlr>();
-            pnlLayers = GetComponent<PannelLayersCtlr>();
-            Instance = this;
-            return;
-        }
-        Destroy(this);
-    }
-    public GameObject goGenerateNFT;
-    public List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
-    public List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
-    public List<string> listCodes = new List<string>();
-    public List<string> listCodesDispoiveis = new List<string>();
-    public List<int> listTotalForLayers = new List<int>();
+    public GameObject pnlGenerateNFT;
     public Slider sldBar;
     public Text txtNameNFT;
-    public DisplayDialogCtlr displayDialog;
-    public GameObject pnlQuestionTutorial;
-    public GameObject pnlTutorial;
-    bool isGenerate = false;
-    string code = "";
+    public Camera cameraScreenShot;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(PlayerPrefs.GetInt("Tutorial") == 0)
-        {
-            pnlQuestionTutorial.SetActive(true);
-        }
-    }
+    private List<SpriteRenderer> listaSpriteRenderer = new List<SpriteRenderer>();
+    private List<LayerNFT> listLayerNFTs = new List<LayerNFT>();
+    private List<string> listCodes = new List<string>();
+    private List<string> listCodesAvailable = new List<string>();
+    private List<int> listTotalForLayers = new List<int>();
+    private bool isGenerate = false;
+    private string code = "";
 
-
-
-    // Update is called once per frame
     void Update()
     {
         if (isGenerate)
         {
-            if (listCodes.Count() < pnlInteractionUser.maxNFTs)
+            if (listCodes.Count() < GameManager.pnlInteractionUser.maxNFTs)
             {
                 RandomImage();
             }
@@ -65,12 +36,12 @@ public class GenerateNFT : MonoBehaviour
         }
     }
 
-    public void ClearLists()
+    private void ClearLists()
     {
         listTotalForLayers.Clear();
         listLayerNFTs.Clear();
         listaSpriteRenderer.Clear();
-        listCodesDispoiveis.Clear();
+        listCodesAvailable.Clear();
         listCodes.Clear();
     }
 
@@ -89,19 +60,19 @@ public class GenerateNFT : MonoBehaviour
         }
         else
         {
-            listCodesDispoiveis.Add(code);
+            listCodesAvailable.Add(code);
         }
     }
 
     public void GenerateImagesNFT()
     {
-        if(pnlInteractionUser.txtInputURL.text!="" && pnlInteractionUser.txtInputQtdNFT.text!="" && pnlInteractionUser.txtInputNameNFT.text != "")
+        if(GameManager.pnlInteractionUser.txtInputURL.text!="" && GameManager.pnlInteractionUser.txtInputQtdNFT.text!="" && GameManager.pnlInteractionUser.txtInputNameNFT.text != "")
         {
-            listLayerNFTs = pnlLayers.LayersNFT;
-            listaSpriteRenderer = pnlLayers.RenderesSprite;
+            listLayerNFTs = GameManager.pnlLayers.LayersNFT;
+            listaSpriteRenderer = GameManager.pnlLayers.RenderesSprite;
             if(listLayerNFTs.Count == 0)
             {
-                displayDialog.ShowDialog("Atenção!", "É obrigatório adicionar pelomenos uma camada!");
+                GameManager.pnlDisplayDialog.ShowDialog("Atenção!", "É obrigatório adicionar pelomenos uma camada!");
             }
             else
             {
@@ -119,7 +90,7 @@ public class GenerateNFT : MonoBehaviour
                 if (isZero)
                 {
                     ClearLists();
-                    displayDialog.ShowDialog("Atenção!", "É obrigatório preencher a camada com pelomenos uma imagem!");
+                    GameManager.pnlDisplayDialog.ShowDialog("Atenção!", "É obrigatório preencher a camada com pelomenos uma imagem!");
                 }
                 else
                 {
@@ -137,19 +108,19 @@ public class GenerateNFT : MonoBehaviour
                         countOrderLayerSpriteRenderer++;
                     }
 
-                    pnlInteractionUser.DefineMaxNFT();
-                    pnlInteractionUser.DefineNameNFT();
-                    List<string> result = listCodesDispoiveis.Except(listCodes).ToList(); // remove todos os codigos que já foram utilizados
-                    listCodesDispoiveis = result;
-                    listCodesDispoiveis.Shuffle();
-                    goGenerateNFT.SetActive(true);
+                    GameManager.pnlInteractionUser.DefineMaxNFT();
+                    GameManager.pnlInteractionUser.DefineNameNFT();
+                    List<string> result = listCodesAvailable.Except(listCodes).ToList(); // remove todos os codigos que já foram utilizados
+                    listCodesAvailable = result;
+                    listCodesAvailable.Shuffle();
+                    pnlGenerateNFT.SetActive(true);
                     isGenerate = true;                    
                 }
             }                     
         }
         else
         {
-            displayDialog.ShowDialog("Atenção!", "Preencha todos os campos!");
+            GameManager.pnlDisplayDialog.ShowDialog("Atenção!", "Preencha todos os campos!");
         }
 
     }
@@ -158,16 +129,16 @@ public class GenerateNFT : MonoBehaviour
     {
         ClearLists();
         isGenerate = false;
-        goGenerateNFT.SetActive(false);
-        Application.OpenURL(pnlInteractionUser.urlFolder);
+        pnlGenerateNFT.SetActive(false);
+        Application.OpenURL(GameManager.pnlInteractionUser.urlFolder);
     }
 
-    public void RandomImage()
+    private void RandomImage()
     {
         OpenFileWithCodes();
         while (true)
         {
-            string codeSelect = listCodesDispoiveis.FirstOrDefault();
+            string codeSelect = listCodesAvailable.FirstOrDefault();
             if (codeSelect != "" || codeSelect != null)
             {
                 for(int i = 0; i<listLayerNFTs.Count; i++)
@@ -183,8 +154,7 @@ public class GenerateNFT : MonoBehaviour
                         return;
                     }
                 }
-                listCodes.Add(codeSelect);
-                listCodesDispoiveis.Remove(codeSelect);
+                ChangeListCode(codeSelect);
                 SaveCodesInFile();
                 break;
             }
@@ -192,63 +162,55 @@ public class GenerateNFT : MonoBehaviour
         }        
     }
 
+    private void ChangeListCode(string codeSelect)
+    {
+        listCodes.Add(codeSelect);
+        listCodesAvailable.Remove(codeSelect);
+    }
+
     private void LateUpdate()
     {
         if (isGenerate)
         {
-            if (listCodes.Count() <= pnlInteractionUser.maxNFTs)
+            if (listCodes.Count() <= GameManager.pnlInteractionUser.maxNFTs)
             {
                 TakeScreenShot(1080, 1080, listCodes.Count(), listCodes.LastOrDefault());
-                sldBar.value =(float)listCodes.Count() / (float)pnlInteractionUser.maxNFTs;
+                UpdateProgressBar();
             }
-            //listCodes.Clear();
-            GameManager.IncrementCountNFT();
+            GameSceneManager.IncrementCountNFT();
         }
         
     }
 
-    [SerializeField] Camera cameraScreenShot;
-    //WaitForEndOfFrame frameEnd = new WaitForEndOfFrame();
-
-    public void TakeScreenShot(int resWidth, int resHeight, int id, string code)
+    private void UpdateProgressBar()
     {
-        //yield return frameEnd; 
-        //Debug.Log("Take Screenshot");
+        sldBar.value = (float)listCodes.Count() / (float)GameManager.pnlInteractionUser.maxNFTs;
+    }
+
+    private void TakeScreenShot(int resWidth, int resHeight, int id, string code)
+    {
         RenderTexture rt = cameraScreenShot.targetTexture;
-        //cameraScreenShot.targetTexture = rt;
         Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
         cameraScreenShot.Render();
         RenderTexture.active = rt;
         screenShot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
-        //cameraScreenShot.targetTexture = null;
-        RenderTexture.active = null; // JC: added to avoid errors
-        //Destroy(rt);
+        RenderTexture.active = null;
         byte[] bytesImg = screenShot.EncodeToPNG();
         string filename = ScreenShotName(id, code);
-        txtNameNFT.text = $"{pnlInteractionUser.nameNFT} #{id}";
+        txtNameNFT.text = $"{GameManager.pnlInteractionUser.nameNFT} #{id}";
         File.WriteAllBytes(filename, bytesImg);
-        //Debug.Log(string.Format("Took screenshot to: {0}", filename));
-        //imgNFT.sprite = LoadTexture(bytesImg);
     }
 
-    public string ScreenShotName(int id, string code)
+    private string ScreenShotName(int id, string code)
     {
         return string.Format("{0}/{1} #{2} - {3}.png",
-                             pnlInteractionUser.urlFolder,
-                             pnlInteractionUser.nameNFT,
+                             GameManager.pnlInteractionUser.urlFolder,
+                             GameManager.pnlInteractionUser.nameNFT,
                              id,
                              code);
     }
 
-    public Sprite LoadTexture(byte[] bytesArray)
-    {
-        Texture2D tex = new Texture2D(512, 512, TextureFormat.RGB24, false);
-        tex.LoadRawTextureData(bytesArray);
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0));
-    }
-
-    public void SaveCodesInFile()
+    private void SaveCodesInFile()
     {
         FileStream fs = new FileStream("save.dat", FileMode.OpenOrCreate);
         BinaryFormatter bf = new BinaryFormatter();
@@ -256,7 +218,7 @@ public class GenerateNFT : MonoBehaviour
         fs.Close();
     }
 
-    public void OpenFileWithCodes()
+    private void OpenFileWithCodes()
     {
         using (Stream stream = File.Open("save.dat", FileMode.OpenOrCreate))
         {
@@ -267,19 +229,5 @@ public class GenerateNFT : MonoBehaviour
                 listCodes = (List<string>)bformatter.Deserialize(stream);
             }            
         }
-    }
-
-    public void SetViewTutorial()
-    {
-        PlayerPrefs.SetInt("Tutorial", 1);
-        pnlQuestionTutorial.SetActive(false);
-    }
-
-    public void ViewTutorial()
-    {
-        SetViewTutorial();
-        pnlTutorial.SetActive(true);
-    }
-
-    
+    }    
 }

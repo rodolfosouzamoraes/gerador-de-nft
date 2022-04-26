@@ -1,37 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public static GenerateNFT pnlGenerateNFT;
+    public static PannelInteractionUserCtlr pnlInteractionUser;
+    public static PannelLayersCtlr pnlLayers;
+    public static DisplayDialogCtlr pnlDisplayDialog;
 
     private void Awake()
     {
         if (Instance == null)
         {
+            pnlGenerateNFT = GetComponent<GenerateNFT>();
+            pnlInteractionUser = GetComponent<PannelInteractionUserCtlr>();
+            pnlLayers = GetComponent<PannelLayersCtlr>();
+            pnlDisplayDialog = FindObjectOfType<DisplayDialogCtlr>();
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             return;
         }
-        Destroy(gameObject);
+        Destroy(this);
     }
 
-    public static int countNFTs = 0;
+    public GameObject pnlQuestionTutorial;
+    public GameObject pnlTutorial;
 
-    public static void IncrementCountNFT()
+    void Start()
     {
-        countNFTs++;
-        if (countNFTs>50)
+        if (PlayerPrefs.GetInt("Tutorial") == 0)
         {
-            countNFTs = 0;
-            SceneManager.LoadScene(0);
+            pnlQuestionTutorial.SetActive(true);
         }
     }
 
-    public void ReloadScene()
+    public void SetViewTutorial()
     {
-        SceneManager.LoadScene(0);
+        PlayerPrefs.SetInt("Tutorial", 1);
+        pnlQuestionTutorial.SetActive(false);
+    }
+
+    public void ViewTutorial()
+    {
+        SetViewTutorial();
+        pnlQuestionTutorial.SetActive(true);
     }
 }
