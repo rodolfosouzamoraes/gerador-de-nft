@@ -1127,6 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b7229435bbb5c41aac58db040d55dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pnlTutorial: {fileID: 206277307}
 --- !u!95 &206277310
 Animator:
   serializedVersion: 3
@@ -5066,6 +5067,7 @@ GameObject:
   - component: {fileID: 1048743345}
   - component: {fileID: 1048743346}
   - component: {fileID: 1048743351}
+  - component: {fileID: 1048743353}
   - component: {fileID: 1048743347}
   - component: {fileID: 1048743348}
   - component: {fileID: 1048743350}
@@ -5467,6 +5469,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pnlQuestionTutorial: {fileID: 1856321224}
   pnlTutorial: {fileID: 206277307}
+--- !u!114 &1048743353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048743339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9394c423a7517a14d8a390f9152c6186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pnlDisplay: {fileID: 1610079202}
+  txtTitle: {fileID: 535730214}
+  txtMessage: {fileID: 56713060}
 --- !u!1 &1050888417
 GameObject:
   m_ObjectHideFlags: 0
@@ -7362,7 +7379,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1610079204}
+      - m_Target: {fileID: 1048743353}
         m_TargetAssemblyTypeName: DisplayDialogCtlr, Assembly-CSharp
         m_MethodName: CloseDialog
         m_Mode: 1
@@ -8592,7 +8609,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1610079203}
-  - component: {fileID: 1610079204}
   m_Layer: 5
   m_Name: pnlDialog
   m_TagString: Untagged
@@ -8624,20 +8640,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1610079204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610079202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9394c423a7517a14d8a390f9152c6186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txtTitle: {fileID: 535730214}
-  txtMessage: {fileID: 56713060}
 --- !u!1 &1646424747
 GameObject:
   m_ObjectHideFlags: 0

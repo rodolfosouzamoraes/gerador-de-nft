@@ -1,7 +1,4 @@
 using SFB;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,15 +40,14 @@ public class ItemLayerCtlr : MonoBehaviour
                 WWW www = new WWW("file:///" + path.Replace("\\","/"));
                 if (www.texture.width != 1080 || www.texture.height != 1080)
                 {
-                    GameManager.pnlDisplayDialog.ShowDialog("Atenção!", "Insira apenas imagens que possuem resolução 1080x1080.");
+                    GameManager.DisplayDialog.ShowDialog("Atenção!", "Insira apenas imagens que possuem resolução 1080x1080.");
                     return;
                 }
                 Rect rect = new Rect(0, 0, www.texture.width, www.texture.height);
                 Sprite spt = Sprite.Create(www.texture, rect, new Vector2(0.5f, 0.5f), 108);
                 layerNFT.listLayer.Add(spt);
-                //spriteRenderer.sprite = layerNFT.listLayer[0];
                 txtTotalImages.text = layerNFT.listLayer.Count.ToString();
-                GameManager.pnlLayers.UpdatePossibilities();
+                GameManager.Layers.UpdatePossibilities();
             }
             
         }

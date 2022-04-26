@@ -16,19 +16,7 @@ public class GameSceneManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public static int countNFTs = 0;
-
-    public static void IncrementCountNFT()
-    {
-        countNFTs++;
-        if (countNFTs > 50)
-        {
-            countNFTs = 0;
-            SceneManager.LoadScene(0);
-        }
-    }
-
-    public void ReloadScene()
+    public static void ReloadScene()
     {
         SceneManager.LoadScene(0);
     }

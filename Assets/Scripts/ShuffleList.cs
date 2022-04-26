@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public static class EmparalhaLista
+public static class ShuffleList
 {
     // Start is called before the first frame update
     private static Random rng = new Random();

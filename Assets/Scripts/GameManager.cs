@@ -3,19 +3,19 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public static GenerateNFT pnlGenerateNFT;
-    public static PannelInteractionUserCtlr pnlInteractionUser;
-    public static PannelLayersCtlr pnlLayers;
-    public static DisplayDialogCtlr pnlDisplayDialog;
+    public static GenerateNFT GenerateNFT;
+    public static PannelInteractionUserCtlr InteractionUser;
+    public static PannelLayersCtlr Layers;
+    public static DisplayDialogCtlr DisplayDialog;
 
     private void Awake()
     {
         if (Instance == null)
         {
-            pnlGenerateNFT = GetComponent<GenerateNFT>();
-            pnlInteractionUser = GetComponent<PannelInteractionUserCtlr>();
-            pnlLayers = GetComponent<PannelLayersCtlr>();
-            pnlDisplayDialog = FindObjectOfType<DisplayDialogCtlr>();
+            GenerateNFT = GetComponent<GenerateNFT>();
+            InteractionUser = GetComponent<PannelInteractionUserCtlr>();
+            Layers = GetComponent<PannelLayersCtlr>();
+            DisplayDialog = FindObjectOfType<DisplayDialogCtlr>();
             Instance = this;
             return;
         }
@@ -42,6 +42,6 @@ public class GameManager : MonoBehaviour
     public void ViewTutorial()
     {
         SetViewTutorial();
-        pnlQuestionTutorial.SetActive(true);
+        pnlTutorial.SetActive(true);
     }
 }
