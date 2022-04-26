@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+/// <summary>
+/// Classe responsável por controlar as camadas do NFT a ser gerado.
+/// </summary>
 public class PannelLayersCtlr : MonoBehaviour
 {
     public GameObject itemLayer;
@@ -48,6 +51,10 @@ public class PannelLayersCtlr : MonoBehaviour
         txtTotalLayer.text =""+ countLayers;
         txtTotalPossibilities.text = $"{countPossibilities} possibilidades";
     }
+
+    /// <summary>
+    /// Adiciona uma nova camada a lista
+    /// </summary>
     public void AddNewLayer()
     {
         GameObject item = Instantiate(itemLayer, contentLayers);        
@@ -60,7 +67,10 @@ public class PannelLayersCtlr : MonoBehaviour
 
         IncrementCountLayers();
     }
-
+    
+    /// <summary>
+    /// Remove a camada da lista
+    /// </summary>
     public void RemoveLayer()
     {
         if (listItensContent.Count > 0)
@@ -78,6 +88,9 @@ public class PannelLayersCtlr : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Atualiza a informação de possibilidades de NFTs
+    /// </summary>
     public void UpdatePossibilities()
     {
         countPossibilities = 1;
@@ -94,6 +107,9 @@ public class PannelLayersCtlr : MonoBehaviour
         txtTotalPossibilities.text = $"{countPossibilities} possibilidades";
     }
 
+    /// <summary>
+    /// Incrementa a contagem de camadas na lista 
+    /// </summary>
     private void IncrementCountLayers()
     {
         countLayers++;
@@ -101,6 +117,9 @@ public class PannelLayersCtlr : MonoBehaviour
         UpdatePossibilities();
     }
 
+    /// <summary>
+    /// Decrementa a contagem de camadas da lista
+    /// </summary>
     private void DecrementCountLayer()
     {
         countLayers--;

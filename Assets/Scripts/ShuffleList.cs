@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// Embaralha uma lista.
+/// </summary>
 public static class ShuffleList
 {
-    // Start is called before the first frame update
     private static Random rng = new Random();
 
     public static void Shuffle<T>(this IList<T> list)

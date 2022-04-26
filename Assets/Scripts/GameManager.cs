@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Classe responsável por gerenciar os elementos principais da cena.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -33,12 +36,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Presseta a exibição do tutorial
+    /// </summary>
     public void SetViewTutorial()
     {
         PlayerPrefs.SetInt("Tutorial", 1);
         pnlQuestionTutorial.SetActive(false);
     }
 
+    /// <summary>
+    /// Exibe o tutorial
+    /// </summary>
     public void ViewTutorial()
     {
         SetViewTutorial();

@@ -3,6 +3,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe responsável por manipular as informaçôes de entrada do usuário
+/// </summary>
 public class PannelInteractionUserCtlr : MonoBehaviour
 {
     public string urlFolder;
@@ -11,6 +14,10 @@ public class PannelInteractionUserCtlr : MonoBehaviour
     public InputField txtInputURL;
     public InputField txtInputQtdNFT;
     public InputField txtInputNameNFT;
+
+    /// <summary>
+    /// Seleciona a pasta onde será salva as NFTs
+    /// </summary>
     public void SelectFolderToSaveNFT()
     {
         try
@@ -26,6 +33,9 @@ public class PannelInteractionUserCtlr : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Define a variável responsável por armazenar o máximo de NFTs a gerar.
+    /// </summary>
     public void DefineMaxNFT()
     {
         int totalNFTInsertUser = int.Parse(txtInputQtdNFT.text);
@@ -40,6 +50,9 @@ public class PannelInteractionUserCtlr : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Insere o numero máximo de possibilidades de NFTs no campo.
+    /// </summary>
     public void InsertMaxPossibilitiesInput()
     {
         maxNFTs = GameManager.Layers.countPossibilities;
@@ -49,10 +62,5 @@ public class PannelInteractionUserCtlr : MonoBehaviour
     public void DefineNameNFT()
     {
         nameNFT = txtInputNameNFT.text;
-    }
-
-    public void OpenFolder()
-    {
-        
     }
 }

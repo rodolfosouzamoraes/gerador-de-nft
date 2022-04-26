@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe responsável por controlar o painel do topo
+/// </summary>
 public class PannelTopCtlr : MonoBehaviour
 {
     public Image imgAudioButton;
@@ -30,6 +33,9 @@ public class PannelTopCtlr : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Habilita e desabilita audios
+    /// </summary>
     public void OnOrOffAudios()
     {
         audioMusic.enabled = !audioMusic.enabled;
@@ -37,16 +43,25 @@ public class PannelTopCtlr : MonoBehaviour
         imgAudioButton.sprite = audioMusic.enabled == true ? audioOn : audioOff;
     }
 
+    /// <summary>
+    /// Fecha a aplicação
+    /// </summary>
     public void ExitApplication()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// Exibe o tutorial
+    /// </summary>
     public void ShowTutorial()
     {
         GameManager.Instance.pnlTutorial.SetActive(true);
     }
 
+    /// <summary>
+    /// Maximiza ou minima a tela do programa
+    /// </summary>
     public void OnOffFullScreen()
     {
         isFullScreen = !isFullScreen;

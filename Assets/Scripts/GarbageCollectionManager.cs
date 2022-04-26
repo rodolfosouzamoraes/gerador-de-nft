@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Classe para genrenciar o uso de memória do Garbage Collection
+/// </summary>
 public class GarbageCollectionManager : MonoBehaviour
 {
     [SerializeField] private float maxTimeBetweenGarbageCollections = 60f;

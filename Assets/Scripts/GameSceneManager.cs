@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Classe responsável por gerenciar o carregamento da cena
+/// </summary>
 public class GameSceneManager : MonoBehaviour
 {
     public static GameSceneManager Instance;
@@ -16,6 +19,9 @@ public class GameSceneManager : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Reinicia a cena
+    /// </summary>
     public static void ReloadScene()
     {
         SceneManager.LoadScene(0);

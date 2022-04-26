@@ -2,12 +2,15 @@ using SFB;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Classe responsável por manipular as camadas 
+/// </summary>
 public class ItemLayerCtlr : MonoBehaviour
 {
     public Text txtTotalImages;
     public Text txtNameLayer;
-    LayerNFT layerNFT; // vai ter todas as imagens dessa layer 
-    string[] paths;
+    private LayerNFT layerNFT; // vai ter todas as imagens dessa layer 
+    private string[] paths;
 
     public LayerNFT LayerNFT
     {
@@ -20,17 +23,27 @@ public class ItemLayerCtlr : MonoBehaviour
         layerNFT = new LayerNFT();
     }
 
+    /// <summary>
+    /// Denomina a camada
+    /// </summary>
+    /// <param name="number">Nome da camada</param>
     public void NameLayer(int number)
     {
         txtNameLayer.text = "Camada " + number;
     }
 
+    /// <summary>
+    /// Abre o explorador de arquivos do windows para poder escolher as imagens da camada.
+    /// </summary>
     public void SelectImage()
     {
         paths = StandaloneFileBrowser.OpenFilePanel("Overwrite with png", "", "png",true);
         GetImage();
     }
 
+    /// <summary>
+    /// Obtém as imagens referenciadas no caminho do arquivo
+    /// </summary>
     private void GetImage()
     {
         if (paths != null)

@@ -6,6 +6,9 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 
+/// <summary>
+/// Classe responsável por gerar as NFTs e salva-las no computador.
+/// </summary>
 public class GenerateNFT : MonoBehaviour
 {
     public GameObject pnlGenerateNFT;
@@ -37,6 +40,9 @@ public class GenerateNFT : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Limpa as listas que fazem parte da lógica de gerar as NFTs
+    /// </summary>
     private void ClearLists()
     {
         listTotalForLayers.Clear();
@@ -46,7 +52,12 @@ public class GenerateNFT : MonoBehaviour
         listCodes.Clear();
     }
 
-    //Uma maneira de percorer todos os elementos da lista
+    /// <summary>
+    /// Gera um código para cada combinação de camadas.
+    /// No final a string será formada por todos os valores de códigos das layers
+    /// </summary>
+    /// <param name="index">Indice do código da camada.</param>
+    /// <param name="idPrevious">O indice anterior do código.</param>
     private void GenerateCodes(int index, int idPrevious)
     {
         code += ""+ idPrevious; // adiciono o proximo id no CODE
@@ -65,6 +76,9 @@ public class GenerateNFT : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gera as combinações de imagens
+    /// </summary>
     public void GenerateImagesNFT()
     {
         if(GameManager.InteractionUser.txtInputURL.text!="" && GameManager.InteractionUser.txtInputQtdNFT.text!="" && GameManager.InteractionUser.txtInputNameNFT.text != "")
@@ -134,6 +148,9 @@ public class GenerateNFT : MonoBehaviour
         Application.OpenURL(GameManager.InteractionUser.urlFolder);
     }
 
+    /// <summary>
+    /// Randomiza a lista de códigos para poder ser gerado aleatóriamente.
+    /// </summary>
     private void RandomImage()
     {
         OpenFileWithCodes();
@@ -163,12 +180,19 @@ public class GenerateNFT : MonoBehaviour
         }        
     }
 
+    /// <summary>
+    /// Transfere o código disponivel para a lista de codigos que já geraram o NFT
+    /// </summary>
+    /// <param name="codeSelect"></param>
     private void ChangeListCode(string codeSelect)
     {
         listCodes.Add(codeSelect);
         listCodesAvailable.Remove(codeSelect);
     }
 
+    /// <summary>
+    /// O LateUpdate tem a funcionalidade chamar o método que irá tirar o print da tela atrávez da camera
+    /// </summary>
     private void LateUpdate()
     {
         if (isGenerate)
@@ -183,11 +207,21 @@ public class GenerateNFT : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Atualiza o Slide Bar da tela de geração
+    /// </summary>
     private void UpdateProgressBar()
     {
         sldBar.value = (float)listCodes.Count() / (float)GameManager.InteractionUser.maxNFTs;
     }
 
+    /// <summary>
+    /// Tira um print da imagem gerada a frente da camera da cena.
+    /// </summary>
+    /// <param name="resWidth">Largura da imagem</param>
+    /// <param name="resHeight">Altura da imagem</param>
+    /// <param name="id">Id da imagem</param>
+    /// <param name="code">Codigo da imagem</param>
     private void TakeScreenShot(int resWidth, int resHeight, int id, string code)
     {
         RenderTexture rt = cameraScreenShot.targetTexture;
@@ -202,6 +236,12 @@ public class GenerateNFT : MonoBehaviour
         File.WriteAllBytes(filename, bytesImg);
     }
 
+    /// <summary>
+    /// Da um nome ao print da imagem.
+    /// </summary>
+    /// <param name="id">Id da imagem</param>
+    /// <param name="code">Codigo da imagem</param>
+    /// <returns></returns>
     private string ScreenShotName(int id, string code)
     {
         return string.Format("{0}/{1} #{2} - {3}.png",
@@ -211,6 +251,9 @@ public class GenerateNFT : MonoBehaviour
                              code);
     }
 
+    /// <summary>
+    /// Salva a lista de codigos gerados em um arquivo
+    /// </summary>
     private void SaveCodesInFile()
     {
         FileStream fs = new FileStream("save.dat", FileMode.OpenOrCreate);
@@ -219,6 +262,9 @@ public class GenerateNFT : MonoBehaviour
         fs.Close();
     }
 
+    /// <summary>
+    /// Abre a lista de códigos já gerados salvos num arquivo.
+    /// </summary>
     private void OpenFileWithCodes()
     {
         using (Stream stream = File.Open("save.dat", FileMode.OpenOrCreate))
@@ -232,6 +278,9 @@ public class GenerateNFT : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Incrementa a contagem de NFTs gerados.
+    /// </summary>
     public void IncrementCountNFT()
     {
         countNFTs++;
