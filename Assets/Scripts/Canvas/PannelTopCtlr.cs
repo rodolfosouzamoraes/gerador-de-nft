@@ -66,6 +66,9 @@ public class PannelTopCtlr : MonoBehaviour
     {
         isFullScreen = !isFullScreen;
         Screen.fullScreen = isFullScreen;
+        if (isFullScreen== false){
+            Screen.SetResolution(1366, 768, false);
+        }
         imgFullscreenButton.sprite = isFullScreen == true ? fullscreenOn : fullscreenOff;
     }
 }

@@ -5068,7 +5068,6 @@ GameObject:
   - component: {fileID: 1048743346}
   - component: {fileID: 1048743351}
   - component: {fileID: 1048743353}
-  - component: {fileID: 1048743347}
   - component: {fileID: 1048743348}
   - component: {fileID: 1048743350}
   - component: {fileID: 1048743349}
@@ -5218,19 +5217,6 @@ MonoBehaviour:
   txtInputURL: {fileID: 1872061216}
   txtInputQtdNFT: {fileID: 970840773}
   txtInputNameNFT: {fileID: 823245880}
---- !u!114 &1048743347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1048743339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54aef2ec6ad2cbc418af0165787834ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTimeBetweenGarbageCollections: 30
 --- !u!114 &1048743348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7661,7 +7647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v 1.0
+  m_Text: v 1.1
 --- !u!222 &1485351054
 CanvasRenderer:
   m_ObjectHideFlags: 0
